@@ -1,0 +1,10 @@
+POST http://localhost:7071/api/counters/7 HTTP/1.1
+content-type: application/json
+
+{
+    "id": 7
+}
+
+# http://localhost:7071/api/counters/7
+
+# POST http://localhost:7071/api/counters/7
