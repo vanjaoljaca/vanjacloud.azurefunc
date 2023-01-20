@@ -31,23 +31,23 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
         }
     }
 
-    console.log(context)
-    const client = df.getClient(context);
-    const id: string = req.params.id;
-    const entityId = new df.EntityId("Counter1", id);
+    // console.log(context)
+    // const client = df.getClient(context);
+    // const id: string = req.params.id;
+    // const entityId = new df.EntityId("Counter1", id);
 
-    if (req.method === "POST") {
-        // increment value
-        await client.signalEntity(entityId, "reset", 1);
-        await client.signalEntity(entityId, "add", 1);
-        await client.signalEntity(entityId, "add", 1);
-    } else {
-        // reads current state of entity
-        const stateResponse = await client.readEntityState<number>(entityId);
-        return { body: stateResponse.entityState };
-    }
-    console.log('writ', entityId)
-    return query.id;
+    // if (req.method === "POST") {
+    //     // increment value
+    //     await client.signalEntity(entityId, "reset", 1);
+    //     await client.signalEntity(entityId, "add", 1);
+    //     await client.signalEntity(entityId, "add", 1);
+    // } else {
+    //     // reads current state of entity
+    //     const stateResponse = await client.readEntityState<number>(entityId);
+    //     return { body: stateResponse.entityState };
+    // }
+    // console.log('writ', entityId)
+    // return query.id;
 };
 
 export default run;
