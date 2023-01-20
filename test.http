@@ -1,3 +1,6 @@
+GET https://vanjacloudjs-dev.azurewebsites.net/api/counters/7
+
+###
 GET https://vanjacloudjs.azurewebsites.net/api/counters/7
 
 ###
