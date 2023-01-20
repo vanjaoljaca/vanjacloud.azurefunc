@@ -41,4 +41,4 @@ jobs:
           app-name: 'vanjacloudjs'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F8F7011196C74D76AA219EDAA9539664 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D2C4D0ED14B748D99BDD1AED07694FEE }}
