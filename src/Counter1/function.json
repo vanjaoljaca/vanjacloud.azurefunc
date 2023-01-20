@@ -1,0 +1,10 @@
+{
+  "bindings": [
+    {
+      "name": "context",
+      "type": "entityTrigger",
+      "direction": "in"
+    }
+  ],
+  "scriptFile": "../dist/Counter1/index.js"
+}

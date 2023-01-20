@@ -1,0 +1,10 @@
+{
+  "bindings": [
+    {
+      "name": "context",
+      "type": "orchestrationTrigger",
+      "direction": "in"
+    }
+  ],
+  "scriptFile": "../dist/DurableFunctionsOrchestratorJS1/index.js"
+}
