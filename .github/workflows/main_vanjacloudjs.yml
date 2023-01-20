@@ -25,14 +25,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: 'Resolve Project Dependencies Using Npm'
-        shell: bash
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-          popd
+      # - name: 'Resolve Project Dependencies Using Npm'
+      #   shell: bash
+      #   run: |
+      #     pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+      #     npm install
+      #     npm run build --if-present
+      #     npm run test --if-present
+      #     popd
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
@@ -42,5 +42,5 @@ jobs:
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B75A65A6AC454C33A14696A31D677862 }}
-          SCM_DO_BUILD_DURING_DEPLOYMENT: 'true'
+          scm-do-build-during-deployment: 'true'
           enable-oryx-build: 'true'
