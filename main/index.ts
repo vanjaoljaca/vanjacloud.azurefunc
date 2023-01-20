@@ -27,7 +27,10 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
     } catch (error) {
         console.log(error)
         return {
-            body: error
+            body: {
+                work: 'yes',
+                error
+            }
         }
     }
 
