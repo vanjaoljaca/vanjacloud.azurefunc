@@ -46,7 +46,6 @@ async function testOpenAI(version: number, prompt: string) {
 }
 
 describe('openai', () => {
-    // jest.setTimeout(60000)
     it('can do basic stuff', async () => {
         const prompt = "A single word synonym for test: "
         let r2 = await testOpenAI(2, prompt)

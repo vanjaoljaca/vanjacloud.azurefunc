@@ -6,8 +6,13 @@ try {
     const settings = JSON.parse(settingsJson);
     values = settings.Values;
 } catch (err) {
-    console.log('Error loading settings: ', err)
-    values = {}
+    console.warn('Error loading settings file. Falling back to env variables.');
+    values = {
+        OPENAI_KEY: process.env.OPENAI_KEY,
+        NOTION_SECRET: process.env.NOTION_SECRET,
+        SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
+        SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+    }
 }
 
 export default {
