@@ -39,6 +39,7 @@ async function callOpenAI(call) {
     if (process.env.GITHUB_ACTION) {
         return null;
     }
+    console.log(process.env)
     return call();
 }
 
