@@ -36,11 +36,11 @@ async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Prom
 
 // idk i'll figure this out later, just want it to run local and not remote
 async function callOpenAI(call) {
-    console.warn('ENV VARS!!!', process.env)
-    return null;
+    console.warn('ENVS!!!', process.env);
     if (process.env.GITHUB_ACTION) {
         return null;
     }
+    return null;
 
     return call();
 }
@@ -50,7 +50,7 @@ async function testOpenAI(version: number, prompt: string) {
     const destfolder = path.join('./temp/', version.toString())
     const filename = path.join(destfolder, 'response.' + promptHash + '.json')
 
-    return withLocalCache(filename, () => callOpenAI(
+    return withLocalCache(filename, () => callOpenAI(() =>
         openai.createCompletion({
             model: "text-davinci-00" + version,
             prompt: prompt,
