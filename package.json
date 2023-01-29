@@ -7,10 +7,14 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
-    "test": "jest"
+    "test": "jest",
+    "play": "tsc && node dist/play.js"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.3",
     "durable-functions": "^2.1.0",
+    "exponential-backoff": "^3.1.0",
+    "openai": "^3.1.0",
     "playwright": "^1.29.2",
     "playwright-chromium": "^1.29.2"
   },

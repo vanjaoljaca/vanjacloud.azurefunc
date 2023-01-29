@@ -4,7 +4,6 @@ import * as scrape from '../src/scrape'
 
 /*
 TODO:
-- deploy from github
 - add tests
 - connect to gpt
 */
@@ -16,19 +15,36 @@ export interface IMainBody {
     test: string
 }
 
+export interface IMainParams {
+    api: string
+}
+
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
     try {
         const query = req.query as unknown as IMainQuery;
         const body = req.body as unknown as IMainBody;
-        let result = await scrape.mostActive();
-        return {
-            body: result
-        };
+        const params = req.params as unknown as IMainParams;
+
+        switch (params.api) {
+            case 'spotify':
+                return {
+                    body: {
+                        spotify: true
+                    }
+                }
+                break;
+            default:
+                console.log('unknown api');
+                return {
+                    body: {
+                        error: 'unknown api'
+                    }
+                }
+        }
     } catch (error) {
         console.log(error)
         return {
             body: {
-                work: 'yes',
                 error
             }
         }
