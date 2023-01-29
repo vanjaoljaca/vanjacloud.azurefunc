@@ -2,7 +2,7 @@ import * as fs from 'fs';
 
 let values;
 try {
-    const settingsJson = fs.readFileSync('local.settings.json', 'utf8');
+    const settingsJson = fs.readFileSync('local.settings2.json', 'utf8');
     const settings = JSON.parse(settingsJson);
     values = settings.Values;
 } catch (err) {
@@ -13,6 +13,8 @@ try {
         SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
         SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
     }
+    console.info('Loaded env variables:',
+        Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
 }
 
 export default {
