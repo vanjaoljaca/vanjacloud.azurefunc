@@ -2,7 +2,7 @@ import * as fs from 'fs';
 
 let values;
 try {
-    const settingsJson = fs.readFileSync('local.settings2.json', 'utf8');
+    const settingsJson = fs.readFileSync('local.settings.json', 'utf8');
     const settings = JSON.parse(settingsJson);
     values = settings.Values;
 } catch (err) {
