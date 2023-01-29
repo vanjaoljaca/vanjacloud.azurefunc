@@ -36,18 +36,15 @@ async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Prom
 
 // idk i'll figure this out later, just want it to run local and not remote
 async function callOpenAI(call) {
-    console.warn('ENVS!!!', process.env);
     if (process.env.GITHUB_ACTION) {
-        return null;
+        throw new Error('Remote interaction disabled for CI tests. Check in snapshots instead.')
     }
-    return null;
-
     return call();
 }
 
 async function testOpenAI(version: number, prompt: string) {
     const promptHash = Buffer.from(prompt).toString('base64')
-    const destfolder = path.join('./temp/', version.toString())
+    const destfolder = path.join('./testdata/openai/', version.toString())
     const filename = path.join(destfolder, 'response.' + promptHash + '.json')
 
     return withLocalCache(filename, () => callOpenAI(() =>
