@@ -36,10 +36,12 @@ async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Prom
 
 // idk i'll figure this out later, just want it to run local and not remote
 async function callOpenAI(call) {
+    console.warn('ENV VARS!!!', process.env)
+    return null;
     if (process.env.GITHUB_ACTION) {
         return null;
     }
-    console.log(process.env)
+
     return call();
 }
 
