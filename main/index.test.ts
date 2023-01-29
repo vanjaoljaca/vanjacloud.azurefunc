@@ -22,7 +22,11 @@ async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Prom
         return JSON.parse(fs.readFileSync(filename, 'utf-8'));
     }
 
-    const result = await fn(); //?
+    if (process.env.GITHUB_ACTION) {
+        throw new Error('Remote interaction disabled for CI tests. Check in snapshots instead.')
+    }
+
+    const result = await fn();
     const unwrapped = {
         data: result.data,
         status: result.status,
@@ -30,16 +34,10 @@ async function withLocalCache<T>(filename: string, fn: () => Promise<any>): Prom
         headers: result.headers,
         config: result.config
     }
-    fs.writeFileSync(filename, JSON.stringify(unwrapped))
-    return result;
-}
 
-// idk i'll figure this out later, just want it to run local and not remote
-async function callOpenAI(call) {
-    if (process.env.GITHUB_ACTION) {
-        throw new Error('Remote interaction disabled for CI tests. Check in snapshots instead.')
-    }
-    return call();
+    fs.writeFileSync(filename, JSON.stringify(unwrapped))
+
+    return result;
 }
 
 async function testOpenAI(version: number, prompt: string) {
@@ -47,12 +45,12 @@ async function testOpenAI(version: number, prompt: string) {
     const destfolder = path.join('./testdata/openai/', version.toString())
     const filename = path.join(destfolder, 'response.' + promptHash + '.json')
 
-    return withLocalCache(filename, () => callOpenAI(() =>
+    return withLocalCache(filename, () =>
         openai.createCompletion({
             model: "text-davinci-00" + version,
             prompt: prompt,
         })
-    ));
+    );
 }
 
 describe('openai', () => {
@@ -64,8 +62,8 @@ describe('openai', () => {
 })
 
 describe('azure function handler', () => {
-    xit('can do basic stuff', async () => {
-        console.log('test')
+    it('can do basic stuff', async () => {
+
         let res = await invokeMain({ test: 'blah' }, { id: 7 })
         assert.ok(res);
     })
