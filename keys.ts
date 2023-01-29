@@ -1,13 +1,12 @@
-import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 
-const env = dotenv.parse(fs.readFileSync('.env', 'utf8'))
-
+const settings = JSON.parse(fs.readFileSync('local.settings.json', 'utf8'))
+const values = settings.Values;
 export default {
-    openai: env.OPENAI_KEY,
-    notion: env.NOTION_SECRET,
+    openai: values.OPENAI_KEY,
+    notion: values.NOTION_SECRET,
     spotify: {
-        clientId: env.SPOTIFY_CLIENTID,
-        clientSecret: env.SPOTIFY_CLIENTSECRET
+        clientId: values.SPOTIFY_CLIENTID,
+        clientSecret: values.SPOTIFY_CLIENTSECRET
     }
 };
