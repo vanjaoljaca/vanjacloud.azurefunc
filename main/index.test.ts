@@ -10,6 +10,11 @@ import axios from 'axios';
 import path = require('path');
 
 
+import MyModule from 'vanjacloudjs.shared';
+console.log(new MyModule().myThing)
+
+
+
 describe('azure function handler', () => {
     it('can do basic stuff', async () => {
 
