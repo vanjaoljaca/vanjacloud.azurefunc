@@ -1,20 +1,35 @@
 import * as fs from 'fs';
 
-let values;
+let values: any;
 try {
-    const settingsJson = fs.readFileSync('local.settings.json', 'utf8');
+    let settingsJson;
+    try {
+        settingsJson = fs.readFileSync('local.settings.json', 'utf8');
+    } catch (err) {
+        console.info('Could not load local.settings.json file. Falling back to ../local.settings.json variables.');
+        settingsJson = fs.readFileSync('../vanjacloudjs/local.settings.json', 'utf8');
+    }
     const settings = JSON.parse(settingsJson);
     values = settings.Values;
 } catch (err) {
-    console.warn('Error loading settings file. Falling back to env variables.');
-    values = {
-        OPENAI_KEY: process.env.OPENAI_KEY,
-        NOTION_SECRET: process.env.NOTION_SECRET,
-        SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
-        SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+    console.info('Could not load  settings file. Falling back to ../keys.json variables.');
+
+    try {
+        values = require('../keys.json');
+    } catch (err) {
+        console.info('Could not load ../keys.json file. Falling back to env variables.');
+
+        console.log(values)
+
+        values = {
+            OPENAI_KEY: process.env.OPENAI_KEY,
+            NOTION_SECRET: process.env.NOTION_SECRET,
+            SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
+            SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+        }
+        console.info('Loaded env variables:',
+            Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
     }
-    console.info('Loaded env variables:',
-        Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
 }
 
 export default {

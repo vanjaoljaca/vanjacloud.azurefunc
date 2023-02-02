@@ -11,6 +11,9 @@ import * as fs from 'fs';
 import axios from 'axios';
 import path = require('path');
 
+// const ChatGPTAPI = require('chatgpt').ChatGPTAPI;
+// import { ChatGPTAPI } from 'chatgpt'
+
 // https://www.npmjs.com/package/openai
 const configuration = new Configuration({
     apiKey: keys.openai,
