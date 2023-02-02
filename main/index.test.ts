@@ -11,7 +11,7 @@ import path = require('path');
 
 
 import MyModule from 'vanjacloudjs.shared';
-console.log(new MyModule().myThing)
+console.log(MyModule.myThing)
 
 
 
