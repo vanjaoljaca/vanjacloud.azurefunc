@@ -16,7 +16,8 @@
     "exponential-backoff": "^3.1.0",
     "openai": "^3.1.0",
     "playwright": "^1.29.2",
-    "playwright-chromium": "^1.29.2"
+    "playwright-chromium": "^1.29.2",
+    "vanjacloudjs.shared": "vanjaoljaca/vanjacloudjs.shared#main"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
