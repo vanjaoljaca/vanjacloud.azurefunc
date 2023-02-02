@@ -10,6 +10,7 @@ import axios from 'axios';
 import path = require('path');
 
 
+
 import MyModule from 'vanjacloudjs.shared';
 console.log(MyModule.myThing)
 
