@@ -2323,7 +2323,7 @@ validator@~13.7.0:
 
 vanjacloudjs.shared@vanjaoljaca/vanjacloudjs.shared#main:
   version "1.0.0"
-  resolved "https://codeload.github.com/vanjaoljaca/vanjacloudjs.shared/tar.gz/93f35c474206e284180bd036481ebeab681074f8"
+  resolved "https://codeload.github.com/vanjaoljaca/vanjacloudjs.shared/tar.gz/8925b3e94d3eaccffcccbc6116a38521ba140971"
   dependencies:
     "@notionhq/client" "^2.2.3"
     exponential-backoff "^3.1.0"
