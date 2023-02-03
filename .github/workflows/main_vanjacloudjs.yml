@@ -29,9 +29,9 @@ jobs:
         shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          yarn
-          yarn build
-          yarn test
+          npm
+          npm build --if-present
+          npm test --if-present
           popd
 
       - name: 'Run Azure Functions Action'
