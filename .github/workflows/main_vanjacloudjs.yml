@@ -29,7 +29,7 @@ jobs:
         shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          npm
+          npm install
           npm build --if-present
           npm test --if-present
           popd
