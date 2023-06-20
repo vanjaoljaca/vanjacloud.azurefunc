@@ -1,4 +1,4 @@
-﻿import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+﻿import {AzureFunction, Context, HttpRequest} from "@azure/functions"
 import * as df from "durable-functions"
 import * as scrape from '../src/scrape'
 
@@ -19,7 +19,7 @@ export interface IMainParams {
     api: string
 }
 
-export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
+function run2(req: HttpRequest) {
     try {
         const query = req.query as unknown as IMainQuery;
         const body = req.body as unknown as IMainBody;
@@ -28,27 +28,32 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
         switch (params.api) {
             case 'spotify':
                 return {
-                    body: {
-                        spotify: true
-                    }
+                    spotify: true
                 }
                 break;
             default:
                 console.log('unknown api');
                 return {
-                    body: {
-                        error: 'unknown api'
-                    }
+                    error: 'unknown api'
                 }
         }
     } catch (error) {
         console.log(error)
         return {
-            body: {
-                error
-            }
+            error
         }
     }
+}
+
+export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
+    const body = run2(req);
+
+    return {
+        body: body,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
 
     // console.log(context)
     // const client = df.getClient(context);
