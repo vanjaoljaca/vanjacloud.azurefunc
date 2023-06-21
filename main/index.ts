@@ -21,7 +21,7 @@ export interface IMainParams {
 
 function run2(req: HttpRequest) {
     try {
-        const query = req.query as unknown as IMainQuery;
+        const query = req.query as unknown as any; //IMainQuery;
         const body = req.body as unknown as IMainBody;
         const params = req.params as unknown as IMainParams;
 
@@ -31,6 +31,16 @@ function run2(req: HttpRequest) {
                     spotify: true
                 }
                 break;
+            case 'whatsapp':
+                if(req.query.token == 'vanjacloud') {
+                    return {
+                        challenge: query.challenge
+                    }
+                } else {
+                    return {
+                        error: 'invalid token'
+                    }
+                }
             default:
                 console.log('unknown api');
                 return {
