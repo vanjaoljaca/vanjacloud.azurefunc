@@ -33,9 +33,9 @@ function run2(req: HttpRequest) {
                 break;
             case 'whatsapp':
                 if(query['hub.verify_token'] == 'vanjacloud') {
-                    return {
-                        challenge: query['hub.challenge']
-                    }
+                    let d = {}
+                    d['hub.challenge'] = query['hub.challenge']
+                    return d;
                 } else {
                     return {
                         error: 'invalid token'
