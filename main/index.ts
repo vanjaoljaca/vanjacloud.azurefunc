@@ -58,6 +58,8 @@ function run2(req: HttpRequest) {
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
     const body = run2(req);
 
+    console.log('request', req, body);
+
     return {
         body: body,
         headers: {
