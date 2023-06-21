@@ -19,6 +19,39 @@ export interface IMainParams {
     api: string
 }
 
+interface WhatsAppMessage {
+    object: string;
+    entry: [{
+        id: string;
+        time: number;
+        changes: [{
+            field: "messages" | any;
+            value: {
+                message: {
+                    from: string;
+                    id: string;
+                    text: {
+                        body: string;
+                    };
+                }
+            }
+        }]
+    }]
+}
+
+function handleMessage(body: WhatsAppMessage) {
+    if(body.object == 'whatsapp_business_account') {
+        let entry = body.entry;
+        for(const m of entry[0].changes.map(c => c.value.message)) {
+            console.log(m)
+        }
+        return 'good';
+    }
+    return {
+        error: 'invalid token'
+    }
+}
+
 function run2(req: HttpRequest) {
     try {
         const query = req.query as unknown as any; //IMainQuery;
@@ -32,12 +65,11 @@ function run2(req: HttpRequest) {
                 }
                 break;
             case 'whatsapp':
+            case 'messenger':
                 if(query['hub.verify_token'] == 'vanjacloud') {
                     return query['hub.challenge'];
                 } else {
-                    return {
-                        error: 'invalid token'
-                    }
+                    return handleMessage(req.body);
                 }
             default:
                 console.log('unknown api');
