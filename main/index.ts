@@ -32,9 +32,9 @@ function run2(req: HttpRequest) {
                 }
                 break;
             case 'whatsapp':
-                if(req.query.token == 'vanjacloud') {
+                if(query.hub.token == 'vanjacloud') {
                     return {
-                        challenge: query.challenge
+                        challenge: query.hub.challenge
                     }
                 } else {
                     return {
