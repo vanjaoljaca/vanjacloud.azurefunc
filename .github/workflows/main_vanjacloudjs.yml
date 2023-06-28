@@ -24,12 +24,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use a secret
+      - name: 'Resolve Project Dependencies Using Npm'
+        shell: bash
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      - name: 'Resolve Project Dependencies Using Npm'
-        shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           npm install
