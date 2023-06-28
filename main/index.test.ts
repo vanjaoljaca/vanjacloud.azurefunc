@@ -19,10 +19,8 @@ console.log(MyModule.myThing)
 
 describe('azure function handler', () => {
     it('can do basic stuff', async () => {
-        let k = keys;
-        console.log('openai key', k.openai == null ? 'null' : k.openai.length)
-        // let res = await invokeMain({ test: 'blah' }, { id: 7 })
-        // assert.ok(res);
+        let res = await invokeMain({ test: 'blah' }, { id: 7 })
+        assert.ok(res);
     })
 })
 
