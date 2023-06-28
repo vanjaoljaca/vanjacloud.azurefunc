@@ -86,7 +86,16 @@ function handleMessage(body: WhatsAppMessage) {
 function handleBlog(body) {
     console.log('blog.body', body)
     return {
-        response: body.message
+        id: body.blogId,
+        text: 'test text...'
+    }
+}
+
+async function handleChat(blogId, context, message) {
+    console.log('handleChat', blogId, context, message)
+    return {
+        blogId,
+        response: message
     }
 }
 
@@ -111,7 +120,11 @@ function run2(req: HttpRequest) {
                 }
                 break;
             case 'blog':
-                return handleBlog(req.body)
+                return handleBlog(req.body);
+                break;
+            case 'chat':
+                return handleChat(query.blogId, req.body.context, req.body.message);
+                break;
             default:
                 console.log('unknown api');
                 return {
