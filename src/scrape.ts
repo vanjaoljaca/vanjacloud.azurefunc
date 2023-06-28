@@ -4,8 +4,20 @@ export async function mostActive() {
         headless: true
     });
 
+    // hackernews
+    // twitter
+    // reddit
+    // google auth
+    // ig
+
     const page = await browser.newPage();
-    await page.goto('https://finance.yahoo.com/most-active?count=100');
+    await page.goto('https://news.ycombinator.com');
+
+    // #\33 6475081 > td:nth-child(3) > span > a
+    // #hnmain > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(8) > td.subtext > span > a:nth-child(7)
+    // #\33 6472854 > td:nth-child(3) > span > a
+    // #hnmain > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(32) > td.subtext > span > a:nth-child(7)
+
 
     const mostActive = /* ignore coverage: should never happen */ await page.$eval('#fin-scr-res-table tbody', tableBody => {
         let all = []
