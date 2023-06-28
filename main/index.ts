@@ -83,7 +83,7 @@ function handleMessage(body: WhatsAppMessage) {
     }
 }
 
-function handleBlog(body) {
+async function handleBlog(body) {
     console.log('blog.body', body)
     return {
         id: body.blogId,
@@ -99,7 +99,7 @@ async function handleChat(blogId, context, message) {
     }
 }
 
-function run2(req: HttpRequest) {
+async function run2(req: HttpRequest) {
     try {
         const query = req.query as unknown as any; //IMainQuery;
         const body = req.body as unknown as IMainBody;
@@ -140,7 +140,7 @@ function run2(req: HttpRequest) {
 }
 
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
-    const body = run2(req);
+    const body = await run2(req);
 
     console.log('request', req, body);
 
