@@ -1,9 +1,9 @@
-import { CompletionCreateParams } from "openai/resources/chat/completions";
 import OpenAI from 'openai';
 
 export class ChatGPT {
     readonly MODEL_NAME = 'gpt-3.5-turbo-16k';
-    readonly messages: Array<CompletionCreateParams.CreateChatCompletionRequestNonStreaming.Messages> = []
+    // OpenAI.CompletionCreateParams.CreateCompletionRequestNonStreaming.messages
+    readonly messages: Array<any> = []
 
     constructor(private openai: OpenAI, systemPrompt: string) {
         this.messages = []
