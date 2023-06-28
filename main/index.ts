@@ -1,12 +1,34 @@
-﻿import {AzureFunction, Context, HttpRequest} from "@azure/functions"
+﻿import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import * as df from "durable-functions"
 import * as scrape from '../src/scrape'
+import { ChatGPT } from '../chatGPT'
+import OpenAI from "openai";
 
-/*
-TODO:
-- add tests
-- connect to gpt
-*/
+import axios from 'axios';
+import * as fs from "fs";
+import keys from "../keys";
+
+
+
+const blog_summary = fs.readFileSync('./content/blog1.summary.md', 'utf8');
+const blog_raw = fs.readFileSync('./content/blog1.raw.md', 'utf8');
+
+const systemPrompt =
+    `You are representing the author of a blog post. The introduction is shown below and it is the only thing that is 
+    shown to the visitor. Below the introduction, is the full post, which the visitor will not see. The visitor is 
+    asking you questions about the blog post. Respond in the first person only, do not mention you are an LLM or AI.
+    
+    Introduction:
+    ${blog_summary}
+    
+    Full Post:
+    ${blog_raw}
+    `
+
+const openai = new OpenAI({
+            apiKey: keys.openai
+        });
+
 export interface IMainQuery {
     id: number;
 }
@@ -39,42 +61,42 @@ interface WhatsAppMessage {
     }]
 }
 
-import axios from 'axios';
-import * as fs from "fs";
+
 const accessToken = process.env['FB_SECRET']
+
 export async function sendMessage(to: string, message: string) {
-  const url = `https://graph.facebook.com/v17.0/112171265246690/messages`;
+    const url = `https://graph.facebook.com/v17.0/112171265246690/messages`;
 
-  const headers = {
-    'Authorization': `Bearer ${accessToken}`,
-    'Content-Type': 'application/json',
-  };
+    const headers = {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+    };
 
-  const payload = {
-    messaging_product: 'whatsapp',
-    to: to,
-    type: 'template',
-    template: {
-      name: 'hello_world',
-      language: {
-        code: 'en_US',
-      },
-    },
-  };
+    const payload = {
+        messaging_product: 'whatsapp',
+        to: to,
+        type: 'template',
+        template: {
+            name: 'hello_world',
+            language: {
+                code: 'en_US',
+            },
+        },
+    };
 
-  try {
-    const response = await axios.post(url, payload, { headers });
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
+    try {
+        const response = await axios.post(url, payload, {headers});
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 
 function handleMessage(body: WhatsAppMessage) {
-    if(body.object == 'whatsapp_business_account') {
+    if (body.object == 'whatsapp_business_account') {
         let entry = body.entry;
-        for(const m of entry[0].changes.map(c => c.value.message)) {
+        for (const m of entry[0].changes.map(c => c.value.message)) {
             console.log("Got Message", m)
         }
         return 'good';
@@ -88,15 +110,23 @@ async function handleBlog(body) {
     console.log('blog.body', body)
     return {
         id: body.blogId,
-        text: fs.readFileSync('./content/blog1.summary.md', 'utf8')
+        text: blog_summary
     }
 }
 
 async function handleChat(blogId, context, message) {
     console.log('handleChat', blogId, context, message)
+
+    const chatGPT = new ChatGPT(
+        openai,
+        systemPrompt
+    );
+
+    const response = await chatGPT.say(message);
+
     return {
         blogId,
-        response: message
+        response
     }
 }
 
@@ -114,7 +144,7 @@ async function run2(req: HttpRequest) {
                 break;
             case 'whatsapp':
             case 'messenger':
-                if(query['hub.verify_token'] == 'vanjacloud') {
+                if (query['hub.verify_token'] == 'vanjacloud') {
                     return query['hub.challenge'];
                 } else {
                     return handleMessage(req.body);
