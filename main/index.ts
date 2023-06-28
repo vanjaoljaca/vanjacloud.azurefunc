@@ -40,6 +40,7 @@ interface WhatsAppMessage {
 }
 
 import axios from 'axios';
+import * as fs from "fs";
 const accessToken = process.env['FB_SECRET']
 export async function sendMessage(to: string, message: string) {
   const url = `https://graph.facebook.com/v17.0/112171265246690/messages`;
@@ -87,7 +88,7 @@ async function handleBlog(body) {
     console.log('blog.body', body)
     return {
         id: body.blogId,
-        text: 'test text...'
+        text: fs.readFileSync('./content/blog1.summary.md', 'utf8')
     }
 }
 
