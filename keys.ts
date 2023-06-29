@@ -1,4 +1,11 @@
 import * as fs from 'fs';
+import dotenv from 'dotenv';
+
+try {
+    dotenv.config();
+} catch (err) {
+    console.info('Could not load dotenv file. Falling back to env variables.');
+}
 
 let values: any;
 try {

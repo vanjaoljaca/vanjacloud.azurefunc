@@ -1,6 +1,6 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
-import { run, IMainBody, IMainQuery } from './index'
+import { run, IMainBody, IMainQuery, IMainParams, Message } from './index'
 import * as azureStubs from 'stub-azure-function-context'
 import assert = require('assert')
 // todo: https://github.com/anthonychu/azure-functions-test-utils
@@ -19,12 +19,30 @@ console.log(MyModule.myThing)
 
 describe('azure function handler', () => {
     it('can do basic stuff', async () => {
-        let res = await invokeMain({ test: 'blah' }, { id: 7 })
+        let res = await invokeMain({ api: 'blah' }, { body: true }, { id: 7 })
         assert.ok(res);
     })
 })
 
-async function invokeMain(params: IMainBody, query: IMainQuery) {
+describe('azure function handler', () => {
+    it.only('can chat context', async () => {
+        let res = await invokeMain(
+            { api: 'chat' },
+            {
+                context: [
+                    Message.user('hi'),
+                    Message.system('hello'),
+                ], message: Message.user('hi')
+            },
+            { id: 7 })
+        res //?
+        assert.ok(res);
+        assert.notEqual(res.body.response, null);
+    })
+})
+
+async function invokeMain(params: IMainParams, body: IMainBody & any, query: IMainQuery) {
+    const headers = {}
     return azureStubs.runStubFunctionFromBindings(
         run,
         [
@@ -35,9 +53,9 @@ async function invokeMain(params: IMainBody, query: IMainQuery) {
                 data: azureStubs.createHttpTrigger(
                     'GET',
                     'http://example.com/counters/11',
-                    {},
-                    {},
+                    headers,
                     params,
+                    body,
                     query,
                 ),
             },

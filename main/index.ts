@@ -9,37 +9,37 @@ import * as fs from "fs";
 import keys from "../keys";
 
 
-
-const blog_summary = fs.readFileSync('./content/blog1.summary.md', 'utf8');
-const blog_raw = fs.readFileSync('./content/blog1.raw.md', 'utf8');
+const systemPromptTemplate = fs.readFileSync('./content/systemprompt.template.md', 'utf8');
+const blogSummary = fs.readFileSync('./content/blog1.summary.md', 'utf8');
+const blogRaw = fs.readFileSync('./content/blog1.raw.md', 'utf8');
 
 const systemPrompt =
-    `You are representing the author of a blog post. The introduction is shown below and it is the only thing that is 
-    shown to the visitor. Below the introduction, is the full post, which the visitor will not see. The visitor is 
-    asking you questions about the blog post. Respond in the first person only, do not mention you are an LLM or AI.
+    `${systemPromptTemplate}
     
     Introduction:
-    ${blog_summary}
+    ${blogSummary}
     
     Full Post:
-    ${blog_raw}
+    ${blogRaw}
     `
 
 const openai = new OpenAI({
-            apiKey: keys.openai
-        });
+    apiKey: keys.openai
+});
 
 export interface IMainQuery {
     id: number;
 }
 
 export interface IMainBody {
-    test: string
+    body: true
 }
 
 export interface IMainParams {
     api: string
 }
+
+export const Message = ChatGPT.Message;
 
 interface WhatsAppMessage {
     object: string;
@@ -85,7 +85,7 @@ export async function sendMessage(to: string, message: string) {
     };
 
     try {
-        const response = await axios.post(url, payload, {headers});
+        const response = await axios.post(url, payload, { headers });
         console.log(response.data);
     } catch (error) {
         console.error(error);
@@ -110,19 +110,24 @@ async function handleBlog(body) {
     console.log('blog.body', body)
     return {
         id: body.blogId,
-        text: blog_summary
+        text: blogSummary
     }
 }
 
-async function handleChat(blogId, context, message) {
+async function handleChat(blogId, context, message: string) {
+    context = context || [];
+
     console.log('handleChat', blogId, context, message)
 
-    const chatGPT = new ChatGPT(
+    const chatGPT = new ChatGPT.Client(
         openai,
         systemPrompt
     );
 
-    const response = await chatGPT.say(message);
+    const response = await chatGPT.invoke([
+        ...context,
+        message
+    ]);
 
     return {
         blogId,
@@ -132,9 +137,11 @@ async function handleChat(blogId, context, message) {
 
 async function run2(req: HttpRequest) {
     try {
-        const query = req.query as unknown as any; //IMainQuery;
+        req //?
+        const query = req.query as unknown as any; // IMainQuery; 
         const body = req.body as unknown as IMainBody;
         const params = req.params as unknown as IMainParams;
+
 
         switch (params.api) {
             case 'spotify':
