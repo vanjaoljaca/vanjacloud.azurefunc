@@ -30,12 +30,13 @@ describe('azure function handler', () => {
             { api: 'chat' },
             {
                 context: [
-                    Message.user('hi'),
-                    Message.system('hello'),
-                ], message: Message.user('hi')
+                    // Message.user('hi'),
+                    // Message.system('hello'),
+                ], message: 'give me the optimal prompt (5 of them) to interact with this content'
             },
             { id: 7 })
-        res //?
+        // res //?
+        console.log(res)//?
         assert.ok(res);
         assert.notEqual(res.body.response, null);
     })

@@ -114,7 +114,7 @@ async function handleBlog(body) {
     }
 }
 
-async function handleChat(blogId, context, message: string) {
+async function handleChat(blogId, context: ChatGPT.Message[], message: string) {
     context = context || [];
 
     console.log('handleChat', blogId, context, message)
@@ -126,7 +126,7 @@ async function handleChat(blogId, context, message: string) {
 
     const response = await chatGPT.invoke([
         ...context,
-        message
+        Message.user(message)
     ]);
 
     return {
