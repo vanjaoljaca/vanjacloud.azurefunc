@@ -217,3 +217,94 @@ Just spent a moment visualizing how it might look for the user to use this, and 
 What am I doing again? Oh thats right, I have a plan above 11:56pm
 
 Sweet, step 1 worked flawlessly (I was expecting a build issue) and step 2 passed as well (sweet). Now to hardcode my blog into the service (this part is a bit meta, since I will need to put this incomplete text in...)
+
+I love ChatGPT, again. Prompt:
+
+```
+I have a default azure typescript function project, i want to have a content folder with some markdown and images. I think i need to update something to make sure this content folder gets copied into dist/ for deploy. how?
+```
+
+The response was a bit mid, but I don't think its ChatGPTs fault, I think typescript build sucks. Please, can someone just admit that we need a proper compiler & build system OUTSIDE of the node project? sigh.
+
+Anyway, having some issues just copying a folder recursively into dest. Not sure why its trying to get me to use the npm package 'copyfiles'. I think this is just `cp -r`? Yes it is. I ask why it gave me such effort: 
+
+```
+I apologize for the confusion. The cp -r command is indeed a straightforward and simple way to copy files and directories in Unix-like systems. However, in the context of Node.js projects, it's common to use Node.js-based tools for tasks like this, as they are cross-platform and integrate well with the Node.js ecosystem.
+```
+
+First push is happening. Obviously storing these text files and images in here is a bit meh. Probably I'll keep the text in here but the images I'll pull out somewhere. Lets just get the ball rolling first to see the UX. Validating website, then adding chatgpt support. Sigh, I rememberd I need to fix that openai crap. Any my battery is running low. 
+
+00:23
+
+Thought: could use chatgpt with this log to estimate how long something would take me to do... it would have past data of how long things take me...
+
+Thought: with an LLM, it is now more-useful to do this 'stream of consciousness' style work system. Write infinite content while you work, then let the system figure out what to do with it. Over time, more filters and stuff can be added on to it... This would be v. interesting for big companies, but also for personal stuff. Would be even cooler if video was running 24/7 and you (I) were (was) constantly narrating what I'm doing to the camera. Soon!
+
+Thought: Will be kinda funny when people start chatting wtih this thing and asking it deep psychological questions like "would you say the author is happy?" lmao
+
+Success.
+
+I would really like it if the chatbot could reply with images. I feel like that would be a warm 'surprise' for people. Like a cute easteregg, something that they're not yet accustomed to.
+
+Ok next step is to get openai working. Sigh. Should I sleep and leave it for tomorrow, or hack away? 
+
+00:27 getting my charger
+
+00:45 Running on fumes. Lets see if I can get openai to work before I fade
+
+Had some nice thoughts about how this would look and how I would advertise it on various communities, how it would grow and how I could finetune an OpenAI model to reply more like me.
+
+So turns out `yarn add openai` works just fine. No idea why it didn't work before? Although I did find some weird left over .js files that I deleted. I'm very close to having something up and running...
+
+Ok I think I've wired up chatgpt with no context only messaging. Last bit remaining is wiring up the API key... where is that even saved?
+
+00:57 pushing... will be strange if this works first try. I'm gonna load up the logs to be ready
+
+github action failed, new key I just added is missing... Fixing
+
+Man, github is so cool. Working with modern non-garbage tools is so cool. Dayjobs are the baddest (derogatory)
+
+Taking a short twitter break while github builds... still fails? I think I need to rerun all jobs not just failing job. Trying again.
+
+Ok I think I found the issue, adding a repo secret to github does not automatically reference that secret in a build script. You have to explicitly pull it into env. I don't like this tbh, seems like a lot of unneccesary work. Ah man it failed again wtf. Ok I didn't merge ChatGPT's response right. Env variables are pulled into a run step of a build script, not into a build script as a whole
+
+Wow wtf. can't believe this worked first try. (Ok technically it failed at deployment like 10 times so its not really first try, but it kinda did work first try. Abstractions that work are great. Once I get my env set up things will be SO GOOD!!)
+
+![image-20230628012301408](assets/llm-blog-concept/image-20230628012301408.png)
+
+28/6/2023 22:43 Starting again
+
+What needs doing? I think I want to fix the context first, then focus on polishing up the view + introduction. I'm thinking "what do i need to do, minimum, to show someone":
+
+1. Fix chatgpt context
+2. Add introductory text
+3. Polish up the view, theme?
+4. Might need to also add more bloggy content to flesh it out, about me etc
+
+Getting distracted by youtube videos about quarter tone scales (arabic, persian, albanian)
+
+23:48 got in a rabbit hole, trying to get a nice local testing environment set up. I'm trying to use wallaby.js, i really enjoy dev with that because its such a fast paced response. But mashing it into webstorm is ugly. It works much nicer in vscode. Tried to get it working in webstorm but it kept using old code. Had issues with WebStorm also suggesting imports deep into OpenAI that broke compiles. Almost got this working, I think this is important to invest time into and get it working nicely. Fast response to changes is very important...
+
+00:01 still polishing up this test, getting a nice end to end where i call the function with my message & context, and it hits open ai + responds. I was missing context support so I'm adding that in, but having some issues exposing the internal message type on context. I'm half way between 'hack it in' and 'get the types right'. i'm finding i need some typing because i have params query and body and its kinda a pain to manage all 3 at once. REST is dumb, hate rest. I just need 1 place to input to my function why is it in 3 places making my life hard. Previously, I had it just accepting a body value on post... but at some point I started using all 3? I have no idea I wasn't paying attention. Should fix this...
+
+00:40 kinda watching some music videos, kinda trying to focus on this. reading the fine tuning api notes to see if it can help. found this command: `openai api chat_completions.create -m gpt-3.5-turbo -g user hey` cool.
+
+01:20 Took a detour to learn how to make finetunings. Just completed context + got it working in my test environment. Nice.
+
+1:52 probably time to call it. my web <-> js interface is murky because i'm hacking at this instead of setting up types properly. Is this even faster than just doing things right?? idk, at least its kinda fun til I get stuck. Anyway, Parcel has decided to stop refreshing my website? wtf?
+
+Ok mashing got parcel to update. Now my LLM is not acknowledging the existence of my backing content? for tomorrow:
+
+1. Why is content not acknowledged anymore?
+2. Add intro post
+3. Style
+
+Jun29 21:44
+
+Tired. Working in slow motion. Found I lost the system prompt, readding that back in...
+
+Fixed the system prompt. Added an intro post. Tried to keep it tight but also I'm pretty tired. I'm imaginging how this will launch and I'm being positive, but getting the quality up will be annoying.
+
+Probably need to add a streaming api..
+
+22:15 uploading latest files...
