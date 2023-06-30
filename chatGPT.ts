@@ -23,7 +23,7 @@ export namespace ChatGPT {
         // OpenAI.CompletionCreateParams.CreateCompletionRequestNonStreaming.messages
         readonly messages: Array<any> = []
 
-        constructor(private openai: OpenAI, systemPrompt: string) {
+        constructor(private openai: OpenAI, private systemPrompt: string) {
             this.messages = []
             this.messages.push({
                 role: 'system',
@@ -47,14 +47,16 @@ export namespace ChatGPT {
         public async invoke(messages: Message[]): Promise<string> {
             const chat: Chat = this.openai.chat;
 
-            messages
+            const m = [
+                Message.system(this.systemPrompt),
+                ...messages
+            ] //?
             try {
                 // return 'disabled';
                 let response = await chat.completions.create({
                     model: this.MODEL_NAME,
 
-
-                    messages: messages.map(m => {
+                    messages: m.map(m => {
                         return {
                             role: m.type,
                             content: m.text
