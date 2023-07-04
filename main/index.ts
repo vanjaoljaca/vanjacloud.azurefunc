@@ -222,13 +222,14 @@ const pattern = new UrlPattern('/api/main/:api(/*)');
 
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
 
-    return { broken: 'true' }
+    context.log('run', req)
     try {
         console.log('run', req)
 
         const route = pattern.match(req.params.route); //?
 
         if (route) {
+            context.log('route', route)
             const api = route.api;
             const query = req.query as unknown as any; // IMainQuery;
             const body = req.body as unknown as IMainBody;
@@ -246,11 +247,11 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
                 }
             };
         } else {
-            console.log('static', req);
+            context.log('static', req);
             return serveStatic(context, req);
         }
     } catch (error) {
-        console.log(error)
+        context.log('error', error)
         return {
             error
         }
