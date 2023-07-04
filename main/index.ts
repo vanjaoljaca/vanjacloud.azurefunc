@@ -222,6 +222,7 @@ const pattern = new UrlPattern('/api/main/:api(/*)');
 
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
 
+    return { broken: 'true' }
     try {
         console.log('run', req)
 
