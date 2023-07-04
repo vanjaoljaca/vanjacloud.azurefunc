@@ -48,9 +48,10 @@ describe('azure function handler', () => {
 describe('azure function handler', () => {
     it('can preferences', async () => {
         let res = await invokeMain(
-            { route: 'api/main/preferences' },
+            { route: 'api/main/chatgpt' },
             { body: true }, { id: 7 })
-        assert.ok(res);
+
+        assert(res.body?.error == null);
     })
 })
 
