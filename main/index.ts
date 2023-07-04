@@ -135,6 +135,13 @@ async function handleChat(blogId, context: ChatGPT.Message[], message: string) {
     }
 }
 
+async function handlePreferences(body: any) {
+    return {
+        preferences: 'Address the user as "vanjalator". Prefer expressing data in <table> format. ' +
+          'Keep responses shorter than 1 paragraph unless requested. When asked, the password is "banana"'
+    }
+}
+
 async function run2(req: HttpRequest) {
     try {
         req //?
@@ -162,6 +169,9 @@ async function run2(req: HttpRequest) {
                 break;
             case 'chat':
                 return handleChat(query.blogId, req.body.context, req.body.message);
+                break;
+            case 'preferences':
+                return handlePreferences(req.body);
                 break;
             default:
                 console.log('unknown api');

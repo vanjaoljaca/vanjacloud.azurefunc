@@ -5,8 +5,6 @@ import HackerNews from './src/hackernews'
 import OpenAI from 'openai';
 import fetch from 'node-fetch';
 
-import { CompletionCreateParams } from "openai/resources/chat/completions";
-
 import dotenv from 'dotenv';
 import axios from 'axios';
 import { ChatGPT } from "./chatGPT";
@@ -23,9 +21,13 @@ const MODEL_NAME = 'gpt-3.5-turbo-16k';
 async function summarize(stuff: string) {
     const systemPrompt =
         "User will provide a HackerNews article, with comments. Infer what the original page was discussing, then pull a few of the most interesting comments / insights. Summarise the user's input in an entertaining way. no more than 3 paragraphs.Do not act as a basic summary, think of the output as a new article or story that can be shared on social media. Do not reference hacker news or specific users or the original article when writing the new content. Don't reference any commenters if discussing things about the thing, only reference commenters if the commenter references themself. Else just say \"some people\". Make sure not to end on a negative note.  Since you're not referencing the HN article, you can't reference 'notable comments', just talk about the subject at hand.";
-    const chat = new ChatGPT(openai, systemPrompt)
+    const chat = new ChatGPT.Client(openai, systemPrompt)
     const response = await chat.say(stuff);
     return response;
+}
+
+async function getChatGptChat() {
+    // https://chat.openai.com/share/0f34e961-bea3-4d1b-8b4f-c9b9e37ffe6c
 }
 
 async function play() {

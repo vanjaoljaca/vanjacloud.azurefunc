@@ -16,6 +16,15 @@ import keys from "../keys";
 console.log(MyModule.myThing)
 
 
+describe('azure function handler', () => {
+    it.only('can preferences', async () => {
+        let res = await invokeMain({ api: 'preferences' }, { body: true }, { id: 7 })
+        res //?
+        assert.ok(res);
+    })
+})
+
+
 
 describe('azure function handler', () => {
     it('can do basic stuff', async () => {
@@ -25,7 +34,7 @@ describe('azure function handler', () => {
 })
 
 describe('azure function handler', () => {
-    it.only('can chat context', async () => {
+    it('can chat', async () => {
         let res = await invokeMain(
             { api: 'chat' },
             {
@@ -36,7 +45,23 @@ describe('azure function handler', () => {
             },
             { id: 7 })
         // res //?
-        console.log(res)//?
+        console.log(res.body)//?
+        assert.ok(res);
+        assert.notEqual(res.body.response, null);
+    })
+
+    it.only('can chat context', async () => {
+        let res = await invokeMain(
+            { api: 'chat' },
+            {
+                context: [
+                    Message.user('hi'),
+                    Message.system('hello'),
+                ], message: 'dont say hello'
+            },
+            { id: 7 })
+        // res //?
+        console.log(res.body)//?
         assert.ok(res);
         assert.notEqual(res.body.response, null);
     })
