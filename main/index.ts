@@ -4,6 +4,9 @@ import * as scrape from '../src/scrape'
 import { ChatGPT } from '../chatGPT'
 import OpenAI from "openai";
 
+import * as path from 'path';
+import UrlPattern from 'url-pattern';
+
 import axios from 'axios';
 import * as fs from "fs";
 import keys from "../keys";
@@ -186,10 +189,6 @@ async function run2(
         }
     }
 }
-
-import * as fs from 'fs';
-import * as path from 'path';
-import UrlPattern from 'url-pattern';
 
 async function serveStatic(context: Context, req: HttpRequest) {
     context.log('HTTP trigger function processed a request.');
