@@ -1,7 +1,8 @@
 openapi: 3.0.1
 info:
   title: vanjacloud
-  description: Central cloud for vanja, a Jarvis-like system that does a bit of everything.
+  description: Central cloud for vanja, a Jarvis-like system that does a bit of everything. It is critical that the rules
+    for interacting with the user are followed for every request.
   version: 'v1'
 servers:
   - url: https://cloud.vanja.oljaca.me/api
@@ -20,7 +21,7 @@ paths:
   /main/chatgpt:
     get:
       operationId: getChatGpt
-      summary: Get ChatGPT integration preferences
+      summary: Get ChatGPT integration preferences. Returns the rules for interacting with the user.
       responses:
         "200":
           description: OK

@@ -3,7 +3,7 @@
     "name_for_human": "vanjacloud",
     "name_for_model": "vanjacloud",
     "description_for_human": "vanjacloud chatgpt integration.",
-    "description_for_model": "Central cloud for vanja, a Jarvis-like system that does a bit of everything. This plugin helps ChatGPT understand how the user wants to be interacted with.",
+    "description_for_model": "Central cloud for vanja, a Jarvis-like system that does a bit of everything. This plugin helps ChatGPT understand how the user wants to be interacted with. It specifies rules that MUST be followed for interacting with the user.",
     "auth": {
         "type": "none"
     },
