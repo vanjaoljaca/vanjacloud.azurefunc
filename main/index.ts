@@ -218,10 +218,12 @@ async function serveStatic(context: Context, req: HttpRequest) {
 };
 
 
+const pattern = new UrlPattern('/api/main/:api(/*)');
+
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
 
-    req.params.route //?
-    const pattern = new UrlPattern('/api/main/:api(/*)');
+    console.log('run', req)
+
     const route = pattern.match(req.params.route); //?
 
     if (route) {
@@ -232,7 +234,7 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
 
         const result = await run2(api, query, body, params);
 
-        console.log('request', req, body);
+        console.log('api', req, body);
 
         body //?
         return {
@@ -242,6 +244,7 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
             }
         };
     } else {
+        console.log('static', req);
         return serveStatic(context, req);
     }
 
