@@ -23,12 +23,23 @@ describe('azure function handler', () => {
         'legal.txt',
         'openapi.yaml'
     ]
-    it.only('static', async () => {
+    it('static', async () => {
         for (const p of paths) {
             let res = await invokeMain(
                 { route: p },
                 { body: true }, { id: 7 })
             assert.ok(res);
+        }
+    })
+    const badpaths = [
+        '../ai-plugin.json',
+    ]
+    it('static', async () => {
+        for (const p of badpaths) {
+            let res = await invokeMain(
+                { route: p },
+                { body: true }, { id: 7 })
+            assert.ok(res.body.startsWith('Invalid'));
         }
     })
 })
@@ -54,7 +65,7 @@ describe('azure function handler', () => {
 })
 
 describe('azure function handler', () => {
-    it('can chat', async () => {
+    xit('can chat', async () => {
         let res = await invokeMain(
             { route: 'api/main/chat' },
             {

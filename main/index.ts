@@ -199,11 +199,10 @@ async function serveStatic(context: Context, req: HttpRequest) {
 
     // Check if the file path is still within the base path
     if (!filePath.startsWith(basePath)) { //?
-        context.res = {
+        return {
             status: 400,
-            body: "Invalid path"
+            body: "Invalid path: " + filePath + ' ' + basePath,
         };
-        return;
     }
 
     const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -222,15 +221,16 @@ const pattern = new UrlPattern('api/main/:api(/*)');
 
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
 
-    context.log('run', req)
-    return { run: true }
+    context.log('context run', req)
+
     try {
-        console.log('run', req)
+        console.log('console run', req)
 
         const route = pattern.match(req.params.route); //?
 
         if (route) {
             context.log('route', route)
+            console.log('cons route', route)
             const api = route.api;
             const query = req.query as unknown as any; // IMainQuery;
             const body = req.body as unknown as IMainBody;
@@ -254,7 +254,7 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
     } catch (error) {
         context.log('error', error)
         return {
-            error
+            body: error
         }
     }
 

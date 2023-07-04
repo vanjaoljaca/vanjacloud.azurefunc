@@ -10,7 +10,7 @@ module.exports = function (wallaby) {
 
     compilers: {
       '**/*.ts?(x)': wallaby.compilers.typeScript({
-        outDir: './dist',
+        outDir: './.wallaby',
         // other TypeScript compiler options
       })
     },

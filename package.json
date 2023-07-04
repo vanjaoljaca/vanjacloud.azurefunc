@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "copy-content": "cp -R content/ dist/content/",
-    "build": "tsc && yarn copy-content",
+    "copy-static": "cp -R main/static/ dist/main/static/",
+    "build": "tsc && yarn copy-content && yarn copy-static",
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
