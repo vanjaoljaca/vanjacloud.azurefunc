@@ -192,7 +192,7 @@ async function run2(
 
 async function serveStatic(context: Context, req: HttpRequest) {
     context.log('HTTP trigger function processed a request.');
-    const requestedFile = context.req.params.route.slice(1) //?
+    const requestedFile = context.req.params.route;
     const basePath = path.resolve(__dirname, 'static'); //?
     const filePath = path.resolve(basePath, requestedFile); //?
 

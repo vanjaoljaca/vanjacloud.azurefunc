@@ -18,10 +18,10 @@ console.log(MyModule.myThing)
 
 describe('azure function handler', () => {
     const paths = [
-        '/.well-known/ai-plugin.json',
-        '/img.png',
-        '/legal.txt',
-        '/openapi.yaml'
+        '.well-known/ai-plugin.json',
+        'img.png',
+        'legal.txt',
+        'openapi.yaml'
     ]
     it.only('static', async () => {
         for (const p of paths) {
@@ -37,7 +37,7 @@ describe('azure function handler', () => {
 describe('azure function handler', () => {
     it('can preferences', async () => {
         let res = await invokeMain(
-            { route: '/api/main/preferences' },
+            { route: 'api/main/preferences' },
             { body: true }, { id: 7 })
         assert.ok(res);
     })
@@ -47,7 +47,7 @@ describe('azure function handler', () => {
 describe('azure function handler', () => {
     it('can do basic stuff', async () => {
         let res = await invokeMain(
-            { route: '/api/main/blah' },
+            { route: 'api/main/blah' },
             { body: true }, { id: 7 })
         assert.ok(res);
     })
@@ -56,7 +56,7 @@ describe('azure function handler', () => {
 describe('azure function handler', () => {
     it('can chat', async () => {
         let res = await invokeMain(
-            { route: '/api/main/chat' },
+            { route: 'api/main/chat' },
             {
                 context: [
                     // Message.user('hi'),
@@ -72,7 +72,7 @@ describe('azure function handler', () => {
 
     it('can chat context', async () => {
         let res = await invokeMain(
-            { route: '/api/main/chat' },
+            { route: 'api/main/chat' },
             {
                 context: [
                     Message.user('hi'),
