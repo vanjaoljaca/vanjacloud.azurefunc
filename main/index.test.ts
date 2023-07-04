@@ -1,18 +1,13 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
-import { run, IMainBody, IMainQuery, IMainParams, Message } from './index'
+import { IMainBody, IMainParams, IMainQuery, Message, run } from './index'
 import * as azureStubs from 'stub-azure-function-context'
-import assert = require('assert')
+import assert from "assert";
 // todo: https://github.com/anthonychu/azure-functions-test-utils
-import { backOff } from "exponential-backoff";
-import * as fs from 'fs';
-import axios from 'axios';
-import path = require('path');
-
 
 
 import MyModule from 'vanjacloudjs.shared';
-import keys from "../keys";
+
 console.log(MyModule.myThing)
 
 
@@ -101,6 +96,7 @@ describe('azure function handler', () => {
 
 async function invokeMain(params: IMainParams, body: IMainBody & any, query: IMainQuery) {
     const headers = {}
+    // This calls index.ts/run() via this stub wrapper
     return azureStubs.runStubFunctionFromBindings(
         run,
         [

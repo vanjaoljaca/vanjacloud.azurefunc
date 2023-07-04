@@ -30,7 +30,7 @@ async function getChatGptChat() {
     // https://chat.openai.com/share/0f34e961-bea3-4d1b-8b4f-c9b9e37ffe6c
 }
 
-async function play() {
+async function playgpt() {
     // await mostActive();
     const stories = await HackerNews.getFrontpage();
     const story = await HackerNews.getStory(stories[25].id)
@@ -47,7 +47,7 @@ async function play() {
     console.log(summary)
 }
 
-play();
+// play();
 
 // quit script
 // process.exit(0);
@@ -71,3 +71,6 @@ const generateAccessToken = async () => {
 
 // Usage
 // sendMessage('12067397964', 'Hello, world!');
+
+import play from './main/twitter'
+play();

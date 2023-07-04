@@ -1,0 +1,8 @@
+import play from './twitter';
+
+describe('twitter', () => {
+  it('plays', async() => {
+    let res = await play();
+    res //?
+  })
+});

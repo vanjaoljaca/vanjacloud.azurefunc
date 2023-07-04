@@ -32,11 +32,16 @@ try {
             OPENAI_KEY: process.env.OPENAI_KEY,
             NOTION_SECRET: process.env.NOTION_SECRET,
             SPOTIFY_CLIENTID: process.env.SPOTIFY_CLIENTID,
-            SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET
+            SPOTIFY_CLIENTSECRET: process.env.SPOTIFY_CLIENTSECRET,
+            TWITTER_API_KEY: process.env.TWITTER_API_KEY,
+            TWITTER_API_KEY_SECRET: process.env.TWITTER_API_KEY_SECRET,
+            TWITTER_BEARER_TOKEN: process.env.TWITTER_BEARER_TOKEN,
+            TWITTER_ACCESS_TOKEN: process.env.TWITTER_ACCESS_TOKEN,
+            TWITTER_ACCESS_TOKEN_SECRET: process.env.TWITTER_ACCESS_TOKEN_SECRET
         }
-        console.info('Loaded env variables:',
-            Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
     }
+    console.info('Loaded env variables:',
+        Object.keys(values).map(k => `${k}: ${values[k]?.length}`));
 }
 
 export default {
@@ -45,5 +50,15 @@ export default {
     spotify: {
         clientId: values.SPOTIFY_CLIENTID,
         clientSecret: values.SPOTIFY_CLIENTSECRET
+    },
+    twitter: {
+        consumer: {
+            apiKey: values.TWITTER_API_KEY,
+            apiKeySecret: values.TWITTER_API_KEY_SECRET
+        },
+        bearerToken: values.TWITTER_BEARER_TOKEN,
+        accessToken: values.TWITTER_ACCESS_TOKEN,
+        accessTokenSecret: values.TWITTER_ACCESS_TOKEN_SECRET,
+        oauthToken: values.TWITTER_OAUTH_TOKEN
     }
 };
