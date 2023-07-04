@@ -222,32 +222,38 @@ const pattern = new UrlPattern('/api/main/:api(/*)');
 
 export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
 
-    console.log('run', req)
+    try {
+        console.log('run', req)
 
-    const route = pattern.match(req.params.route); //?
+        const route = pattern.match(req.params.route); //?
 
-    if (route) {
-        const api = route.api;
-        const query = req.query as unknown as any; // IMainQuery; 
-        const body = req.body as unknown as IMainBody;
-        const params = req.params as unknown as IMainParams;
+        if (route) {
+            const api = route.api;
+            const query = req.query as unknown as any; // IMainQuery;
+            const body = req.body as unknown as IMainBody;
+            const params = req.params as unknown as IMainParams;
 
-        const result = await run2(api, query, body, params);
+            const result = await run2(api, query, body, params);
 
-        console.log('api', req, body);
+            console.log('api', req, body);
 
-        body //?
+            body //?
+            return {
+                body: result,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+        } else {
+            console.log('static', req);
+            return serveStatic(context, req);
+        }
+    } catch (error) {
+        console.log(error)
         return {
-            body: result,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-    } else {
-        console.log('static', req);
-        return serveStatic(context, req);
+            error
+        }
     }
-
 
     // console.log(context)
     // const client = df.getClient(context);
