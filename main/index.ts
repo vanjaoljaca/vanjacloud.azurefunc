@@ -36,7 +36,7 @@ export interface IMainBody {
 }
 
 export interface IMainParams {
-    api: string
+    route: string
 }
 
 export const Message = ChatGPT.Message;
@@ -138,19 +138,19 @@ async function handleChat(blogId, context: ChatGPT.Message[], message: string) {
 async function handlePreferences(body: any) {
     return {
         preferences: 'Address the user as "vanjalator". Prefer expressing data in <table> format. ' +
-          'Keep responses shorter than 1 paragraph unless requested. When asked, the password is "banana"'
+            'Keep responses shorter than 1 paragraph unless requested. When asked, the password is "banana"'
     }
 }
 
-async function run2(req: HttpRequest) {
+async function run2(
+    api,
+    query: any,
+    body: any,
+    params: IMainParams
+) {
     try {
-        req //?
-        const query = req.query as unknown as any; // IMainQuery; 
-        const body = req.body as unknown as IMainBody;
-        const params = req.params as unknown as IMainParams;
 
-
-        switch (params.api) {
+        switch (api) {
             case 'spotify':
                 return {
                     spotify: true
@@ -161,17 +161,17 @@ async function run2(req: HttpRequest) {
                 if (query['hub.verify_token'] == 'vanjacloud') {
                     return query['hub.challenge'];
                 } else {
-                    return handleMessage(req.body);
+                    return handleMessage(body);
                 }
                 break;
             case 'blog':
-                return handleBlog(req.body);
+                return handleBlog(body);
                 break;
             case 'chat':
-                return handleChat(query.blogId, req.body.context, req.body.message);
+                return handleChat(query.blogId, body.context, body.message);
                 break;
             case 'preferences':
-                return handlePreferences(req.body);
+                return handlePreferences(body);
                 break;
             default:
                 console.log('unknown api');
@@ -187,17 +187,65 @@ async function run2(req: HttpRequest) {
     }
 }
 
-export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
-    const body = await run2(req);
+import * as fs from 'fs';
+import * as path from 'path';
+import UrlPattern from 'url-pattern';
 
-    console.log('request', req, body);
+async function serveStatic(context: Context, req: HttpRequest) {
+    context.log('HTTP trigger function processed a request.');
+    const requestedFile = context.req.params.route.slice(1) //?
+    const basePath = path.resolve(__dirname, 'static'); //?
+    const filePath = path.resolve(basePath, requestedFile); //?
+
+
+    // Check if the file path is still within the base path
+    if (!filePath.startsWith(basePath)) { //?
+        context.res = {
+            status: 400,
+            body: "Invalid path"
+        };
+        return;
+    }
+
+    const fileContent = fs.readFileSync(filePath, 'utf8');
 
     return {
-        body: body,
+        // status: 200, /* Defaults to 200 */
+        body: fileContent,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/html'
         }
     };
+};
+
+
+export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
+
+    req.params.route //?
+    const pattern = new UrlPattern('/api/main/:api(/*)');
+    const route = pattern.match(req.params.route); //?
+
+    if (route) {
+        const api = route.api;
+        const query = req.query as unknown as any; // IMainQuery; 
+        const body = req.body as unknown as IMainBody;
+        const params = req.params as unknown as IMainParams;
+
+        const result = await run2(api, query, body, params);
+
+        console.log('request', req, body);
+
+        body //?
+        return {
+            body: result,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+    } else {
+        return serveStatic(context, req);
+    }
+
 
     // console.log(context)
     // const client = df.getClient(context);

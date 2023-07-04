@@ -17,18 +17,38 @@ console.log(MyModule.myThing)
 
 
 describe('azure function handler', () => {
-    it.only('can preferences', async () => {
-        let res = await invokeMain({ api: 'preferences' }, { body: true }, { id: 7 })
-        res //?
+    const paths = [
+        '/.well-known/ai-plugin.json',
+        '/img.png',
+        '/legal.txt',
+        '/openapi.yaml'
+    ]
+    it.only('static', async () => {
+        for (const p of paths) {
+            let res = await invokeMain(
+                { route: p },
+                { body: true }, { id: 7 })
+            assert.ok(res);
+        }
+    })
+})
+
+
+describe('azure function handler', () => {
+    it('can preferences', async () => {
+        let res = await invokeMain(
+            { route: '/api/main/preferences' },
+            { body: true }, { id: 7 })
         assert.ok(res);
     })
 })
 
 
-
 describe('azure function handler', () => {
     it('can do basic stuff', async () => {
-        let res = await invokeMain({ api: 'blah' }, { body: true }, { id: 7 })
+        let res = await invokeMain(
+            { route: '/api/main/blah' },
+            { body: true }, { id: 7 })
         assert.ok(res);
     })
 })
@@ -36,7 +56,7 @@ describe('azure function handler', () => {
 describe('azure function handler', () => {
     it('can chat', async () => {
         let res = await invokeMain(
-            { api: 'chat' },
+            { route: '/api/main/chat' },
             {
                 context: [
                     // Message.user('hi'),
@@ -50,9 +70,9 @@ describe('azure function handler', () => {
         assert.notEqual(res.body.response, null);
     })
 
-    it.only('can chat context', async () => {
+    it('can chat context', async () => {
         let res = await invokeMain(
-            { api: 'chat' },
+            { route: '/api/main/chat' },
             {
                 context: [
                     Message.user('hi'),
