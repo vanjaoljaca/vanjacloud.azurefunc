@@ -1,6 +1,6 @@
 ﻿import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import * as df from "durable-functions"
-import * as scrape from '../src/scrape'
+import * as scrape from './scrape'
 import { ChatGPT } from '../chatGPT'
 import OpenAI from "openai";
 
@@ -145,7 +145,7 @@ async function handleChatGpt(body: any) {
     }
 }
 
-async function run2(
+async function runApi(
     api,
     query: any,
     body: any,
@@ -190,12 +190,9 @@ async function run2(
     }
 }
 
-async function serveStatic(context: Context, req: HttpRequest) {
-    context.log('HTTP trigger function processed a request.');
-    const requestedFile = context.req.params.route;
-    const basePath = path.resolve(__dirname, 'static'); //?
+async function serveStatic(requestedFile: string) {
+    const basePath = path.resolve(process.cwd(), 'static'); //?
     const filePath = path.resolve(basePath, requestedFile); //?
-
 
     // Check if the file path is still within the base path
     if (!filePath.startsWith(basePath)) { //?
@@ -217,30 +214,15 @@ async function serveStatic(context: Context, req: HttpRequest) {
 };
 
 
-const pattern = new UrlPattern('api/main/:api(/*)');
-
-export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
-
-    context.log('context run', req)
-
+export async function runInternal(route: string, query, body, params) {
     try {
-        console.log('console run', req)
+        const pattern = new UrlPattern('api/main/:api(/*)');
+        const parsedRoute = pattern.match(route); //?
+        if (parsedRoute) {
 
-        const route = pattern.match(req.params.route); //?
+            const api = parsedRoute.api;
+            const result = await runApi(api, query, body, params);
 
-        if (route) {
-            context.log('route', route)
-            console.log('cons route', route)
-            const api = route.api;
-            const query = req.query as unknown as any; // IMainQuery;
-            const body = req.body as unknown as IMainBody;
-            const params = req.params as unknown as IMainParams;
-
-            const result = await run2(api, query, body, params);
-
-            console.log('api', req, body);
-
-            body //?
             return {
                 body: result,
                 headers: {
@@ -248,33 +230,23 @@ export const run: AzureFunction = async function (context: Context, req: HttpReq
                 }
             };
         } else {
-            context.log('static', req);
-            return serveStatic(context, req);
+            return await serveStatic(route);
         }
     } catch (error) {
-        context.log('error', error)
+        console.log('error', error)
         return {
             body: error
         }
     }
+}
 
-    // console.log(context)
-    // const client = df.getClient(context);
-    // const id: string = req.params.id;
-    // const entityId = new df.EntityId("Counter1", id);
+export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
 
-    // if (req.method === "POST") {
-    //     // increment value
-    //     await client.signalEntity(entityId, "reset", 1);
-    //     await client.signalEntity(entityId, "add", 1);
-    //     await client.signalEntity(entityId, "add", 1);
-    // } else {
-    //     // reads current state of entity
-    //     const stateResponse = await client.readEntityState<number>(entityId);
-    //     return { body: stateResponse.entityState };
-    // }
-    // console.log('writ', entityId)
-    // return query.id;
+    let route = req.params.route;
+    const query = req.query as unknown as any; // IMainQuery;
+    const body = req.body as unknown as IMainBody;
+    const params = req.params as unknown as IMainParams;
+    return await runInternal(route, query, body, params);
 };
 
 export default run;

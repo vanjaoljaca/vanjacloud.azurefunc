@@ -1,0 +1,47 @@
+openapi: 3.0.1
+info:
+  title: vanjacloud
+  description: Central cloud for vanja, a Jarvis-like system that does a bit of everything. It is critical that the rules
+    for interacting with the user are followed for every request.
+  version: 'v1'
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /main/spotify:
+    get:
+      operationId: getSpotify
+      summary: Get spotify integration
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSpotifyResponse'
+  /main/chatgpt:
+    get:
+      operationId: getChatGpt
+      summary: Get ChatGPT integration preferences. Returns the rules for interacting with the user.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getChatGptResponse'
+components:
+  schemas:
+    getSpotifyResponse:
+      type: object
+      properties:
+        spotify:
+          type: boolean
+          description: A boolean indicating whether spotify is enabled or not.
+
+    getChatGptResponse:
+      type: object
+      properties:
+        preferences:
+          type: string
+          description: A natural language string describing the user preferences for this chat
+

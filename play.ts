@@ -1,7 +1,7 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
 
-import HackerNews from './src/hackernews'
+import HackerNews from './main/hackernews'
 import OpenAI from 'openai';
 import fetch from 'node-fetch';
 

@@ -1,0 +1,17 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "vanjacloud_dev",
+    "name_for_model": "vanjacloud_dev",
+    "description_for_human": "vanjacloud chatgpt integration.",
+    "description_for_model": "Central cloud for vanja, a Jarvis-like system that does a bit of everything. This plugin helps ChatGPT understand how the user wants to be interacted with. It specifies rules that MUST be followed for interacting with the user.",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "http://localhost:3000/openapi.yaml"
+    },
+    "logo_url": "http://localhost:3000/img.png",
+    "contact_email": "vanjab+vanjacloud@gmail.com",
+    "legal_info_url": "http://localhost:3000/legal.txt"
+}
