@@ -1,7 +1,7 @@
 ﻿import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import * as df from "durable-functions"
 import * as scrape from './scrape'
-import { ChatGPT } from '../chatGPT'
+import { ChatGPT } from "vanjacloud.shared.js";
 import OpenAI from "openai";
 
 import * as path from 'path';

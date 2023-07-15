@@ -7,7 +7,7 @@ import fetch from 'node-fetch';
 
 import dotenv from 'dotenv';
 import axios from 'axios';
-import { ChatGPT } from "./chatGPT";
+import { ChatGPT } from "../vanjacloud.shared.js/src/chatGPT";
 
 dotenv.config();
 
