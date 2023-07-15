@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "vanjacloud.azurefunc",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -27,7 +27,7 @@
     "querystring": "^0.2.1",
     "ts-node": "^10.9.1",
     "url-pattern": "^1.0.3",
-    "vanjacloudjs.shared": "vanjaoljaca/vanjacloudjs.shared#main"
+    "vanjacloud.shared.js": "vanjaoljaca/vanjacloud.shared.js#main"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
