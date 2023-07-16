@@ -27,7 +27,7 @@
     "querystring": "^0.2.1",
     "ts-node": "^10.9.1",
     "url-pattern": "^1.0.3",
-    "vanjacloud.shared.js": "vanjaoljaca/vanjacloud.shared.js#main"
+    "vanjacloud.shared.js": "vanjaoljaca/vanjacloudjs.shared#main"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
