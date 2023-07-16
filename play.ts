@@ -42,7 +42,7 @@ async function playgpt() {
             story,
             comments
         }))
-    console.log(summary)
+    console.log(JSON.stringify(summary))
 }
 
 // play();
@@ -71,4 +71,5 @@ const generateAccessToken = async () => {
 // sendMessage('12067397964', 'Hello, world!');
 
 import play from './main/twitter'
-play();
+// play();
+playgpt();
