@@ -7,8 +7,40 @@ import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import { ChatGPT } from "vanjacloud.shared.js";
+process.env['DEBUG'] = 'true'
+import OpenAI from 'openai';
 
 dotenv.config();
+
+
+async function debug() {
+
+    try {
+        const client = new OpenAI({
+            apiKey: process.env['OPENAI_API_KEY']
+            // baseURL: 'https://api.openai.com/v1/'
+        })
+        console.log(client.baseURL)
+        // Non-streaming:
+        const result = await client.completions.create({
+            prompt: 'Say this is a test',
+            model: 'text-davinci-003',
+        },
+        //     {
+        //     query : { "api-version": "2023-06-01-preview" },
+        //     headers: {'api-key': Keys.openai}
+        // }
+        );
+        console.log(result.choices[0]!.text);
+    }
+    catch (e) {
+        console.log(e.stack)
+    }
+}
+
+// debug()
+
+
 
 // Initialize the OpenAI API with your API key
 const MODEL_NAME = 'gpt-3.5-turbo-16k';
@@ -72,4 +104,4 @@ const generateAccessToken = async () => {
 
 import play from './main/twitter'
 // play();
-playgpt();
+// playgpt();
