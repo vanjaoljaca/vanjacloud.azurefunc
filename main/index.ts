@@ -1,8 +1,5 @@
 ﻿import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import * as df from "durable-functions"
-import * as scrape from './scrape'
 import { ChatGPT } from "vanjacloud.shared.js";
-import OpenAI from "openai";
 
 import * as path from 'path';
 import UrlPattern from 'url-pattern';
@@ -25,10 +22,6 @@ const systemPrompt =
     Full Post:
     ${blogRaw}
     `
-
-const openai = new OpenAI({
-    apiKey: keys.openai
-});
 
 export interface IMainQuery {
     id: number;
@@ -123,8 +116,10 @@ async function handleChat(blogId, context: ChatGPT.Message[], message: string) {
     console.log('handleChat', blogId, context, message)
 
     const chatGPT = new ChatGPT.Client(
-        openai,
-        systemPrompt
+        {
+            apiKey: keys.openai,
+            systemPrompt
+        }
     );
 
     const response = await chatGPT.invoke([

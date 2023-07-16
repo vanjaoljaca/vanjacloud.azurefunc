@@ -2,26 +2,24 @@
 
 
 import HackerNews from './main/hackernews'
-import OpenAI from 'openai';
 import fetch from 'node-fetch';
 
 import dotenv from 'dotenv';
 import axios from 'axios';
-import { ChatGPT } from "../vanjacloud.shared.js/src/chatGPT";
+import { ChatGPT } from "vanjacloud.shared.js";
 
 dotenv.config();
 
 // Initialize the OpenAI API with your API key
-const openai = new OpenAI({
-    apiKey: process.env['OPENAI_API_KEY'],
-});
-
 const MODEL_NAME = 'gpt-3.5-turbo-16k';
 
 async function summarize(stuff: string) {
     const systemPrompt =
         "User will provide a HackerNews article, with comments. Infer what the original page was discussing, then pull a few of the most interesting comments / insights. Summarise the user's input in an entertaining way. no more than 3 paragraphs.Do not act as a basic summary, think of the output as a new article or story that can be shared on social media. Do not reference hacker news or specific users or the original article when writing the new content. Don't reference any commenters if discussing things about the thing, only reference commenters if the commenter references themself. Else just say \"some people\". Make sure not to end on a negative note.  Since you're not referencing the HN article, you can't reference 'notable comments', just talk about the subject at hand.";
-    const chat = new ChatGPT.Client(openai, systemPrompt)
+    const chat = new ChatGPT.Client({
+        apiKey: process.env['OPENAI_API_KEY'],
+        systemPrompt
+    })
     const response = await chat.say(stuff);
     return response;
 }
