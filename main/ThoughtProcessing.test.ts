@@ -1,7 +1,7 @@
 // testable-http-triggered-function/__tests__/index.test.ts
 
 import * as sut from './scrape'
-import { ThoughtDB } from "vanjacloud.shared.js/dist/src/notion";
+import { ThoughtDB } from "vanjacloud.shared.js";
 import keys from '../keys'
 import moment from 'moment'
 

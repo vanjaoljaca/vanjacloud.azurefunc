@@ -5,9 +5,6 @@ import * as azureStubs from 'stub-azure-function-context'
 import assert from "assert";
 // todo: https://github.com/anthonychu/azure-functions-test-utils
 
-
-import MyModule from 'vanjacloud.shared.js';
-
 describe('azure function handler', () => {
     const paths = [
         '.well-known/ai-plugin.json',
