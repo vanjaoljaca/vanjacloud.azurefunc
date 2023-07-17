@@ -1,5 +1,5 @@
 ﻿import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { ChatGPT } from "vanjacloud.shared.js";
+import { ChatGPT, ThoughtDB } from "vanjacloud.shared.js";
 
 import * as path from 'path';
 import UrlPattern from 'url-pattern';
@@ -163,29 +163,27 @@ async function handleLanguage(body: {
     }
 }
 
-async function handleRetrospective(body: {
+async function handleLanguageRetrospective(body: {
     request, target, text
 }) {
-    console.log('body', body)
+    console.log('body lang retro', body)
 
     const chatGPT = new ChatGPT.Client(
         {
             apiKey: keys.openai,
             systemPrompt: `You are a language teacher of language: ${body.target}. 
-            You always explain language in an entertaining way in the target language. When necessary, you might 
-            reference english. The learner is intermediate level. The user experience is that they asked for a translation
-            in an iOS app, then clicked a 'I'm confused' button for clarification. Your response is presented in the app
-            in a non-conversational way. 
             Respond completely in target language: ${body.target}. If necessary, you can add a little english clarification
             at the end. Feel free to reference english words.`
         }
     );
 
-    const teacher = new LanguageTeacher(chatGPT, null);
+    const thoughtDb = new ThoughtDB(keys.notion, ThoughtDB.proddbid);
 
-    const response = await chatGPT.say(`Translate this text, and explain necessary language nuance: \n${body.text}`);
+    const teacher = new LanguageTeacher(chatGPT, thoughtDb);
 
-    console.log('chatgpt', response)
+    const response = await teacher.retrospective();
+
+    // const response = await chatGPT.say(`Translate this text, and explain necessary language nuance: \n${body.text}`);
 
     return {
         response: response,
@@ -193,6 +191,40 @@ async function handleRetrospective(body: {
     }
 }
 
+async function handleRetrospective(body: {
+    request, target, text
+}) {
+    console.log('body retro', body)
+
+    const chatGPT = new ChatGPT.Client(
+        {
+            apiKey: keys.openai,
+            systemPrompt: `You are writing a journal entry in the perspective of the user in language: ${body.target}. 
+            Write in 1st person perspective & convert the given bullet journal entries into a big journal entry.
+            Keep it interesting and light hearted in the first half, then add a line break & add a more
+            serious reflection & critique of what might have happened (act like a therapist).
+            `
+        }
+    );
+
+    const thoughtDb = new ThoughtDB(keys.notion, ThoughtDB.proddbid);
+
+    let l = thoughtDb.getLatest()
+
+    let r = []
+    for await (const t of  l) {
+        r.push(t)
+    }
+
+    console.log(r)
+
+    const r2 = await chatGPT.say(`Here are the bullet journal items to convert into a journal entry:\n\n${r.join('\n\n')}`);
+
+    return {
+        response: r2,
+        request: body
+    }
+}
 
 async function handleChatGpt(body: any) {
     return {
@@ -235,11 +267,14 @@ async function runApi(
             case 'language':
                 return handleLanguage(body);
                 break;
+            case 'languageretrospective':
+                return handleLanguageRetrospective(body);
+                break;
             case 'retrospective':
                 return handleRetrospective(body);
                 break;
             default:
-                console.log('unknown api');
+                console.log('unknown api', api);
                 return {
                     error: 'unknown api'
                 }
@@ -282,8 +317,14 @@ export async function runInternal(route: string, query, body, params) {
         const parsedRoute = pattern.match(route); //?
         if (parsedRoute) {
 
+
             const api = parsedRoute.api;
+
+            console.log(api, parsedRoute)
+
             const result = await runApi(api, query, body, params);
+
+            console.log('result', result)
 
             return {
                 body: result,
