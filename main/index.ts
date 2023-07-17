@@ -7,6 +7,7 @@ import UrlPattern from 'url-pattern';
 import axios from 'axios';
 import * as fs from "fs";
 import keys from "../keys";
+import { LanguageTeacher } from "vanjacloud.shared.js";
 
 
 const systemPromptTemplate = fs.readFileSync('./content/systemprompt.template.md', 'utf8');
@@ -162,6 +163,36 @@ async function handleLanguage(body: {
     }
 }
 
+async function handleRetrospective(body: {
+    request, target, text
+}) {
+    console.log('body', body)
+
+    const chatGPT = new ChatGPT.Client(
+        {
+            apiKey: keys.openai,
+            systemPrompt: `You are a language teacher of language: ${body.target}. 
+            You always explain language in an entertaining way in the target language. When necessary, you might 
+            reference english. The learner is intermediate level. The user experience is that they asked for a translation
+            in an iOS app, then clicked a 'I'm confused' button for clarification. Your response is presented in the app
+            in a non-conversational way. 
+            Respond completely in target language: ${body.target}. If necessary, you can add a little english clarification
+            at the end. Feel free to reference english words.`
+        }
+    );
+
+    const teacher = new LanguageTeacher(chatGPT, null);
+
+    const response = await chatGPT.say(`Translate this text, and explain necessary language nuance: \n${body.text}`);
+
+    console.log('chatgpt', response)
+
+    return {
+        response: response,
+        request: body
+    }
+}
+
 
 async function handleChatGpt(body: any) {
     return {
@@ -203,6 +234,9 @@ async function runApi(
                 break;
             case 'language':
                 return handleLanguage(body);
+                break;
+            case 'retrospective':
+                return handleRetrospective(body);
                 break;
             default:
                 console.log('unknown api');
