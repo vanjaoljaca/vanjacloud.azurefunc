@@ -4,7 +4,6 @@ import { IMainBody, IMainParams, IMainQuery, Message, run } from './index'
 import * as azureStubs from 'stub-azure-function-context'
 import assert from "assert";
 // todo: https://github.com/anthonychu/azure-functions-test-utils
-
 describe('azure function handler', () => {
     const paths = [
         '.well-known/ai-plugin.json',
