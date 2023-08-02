@@ -54,6 +54,19 @@ describe('azure function handler', () => {
 })
 
 describe('azure function handler', () => {
+    jest.setTimeout(20000);
+
+    it.only('retrospective', async () => {
+        let res = await invokeMain(
+            { route: 'api/main/retrospective' },
+            { body: true }, { id: 7 })
+        res //?
+        assert.ok(res);
+    })
+})
+
+
+describe('azure function handler', () => {
     xit('can chat', async () => {
         let res = await invokeMain(
             { route: 'api/main/chat' },

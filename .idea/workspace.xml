@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0efcab70-ecd8-4dfb-b85f-7d51b1b29ffe" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/main/index.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main/index.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main/index.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../vanjacloud.shared.js" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2SbNSnL94HeQDzpGgh47LUs8SP1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showScratchesAndConsoles" value="false" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/vanjaoljaca/work/vanjacloud/vanjacloud.shared.js/prompts&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;/Users/vanjaoljaca/work/vanjacloud/vanjacloud.shared.js/node_modules/jest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.TypeScript&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/vanjaoljaca/work/vanjacloud/vanjacloud.azurefunc/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../vanjacloud.shared.js/prompts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../vanjacloud.shared.js/src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Wallaby.js.Wallaby/AzureFunc">
+    <configuration name="isValidChord.identifies the 5th chord in a major scale, its 7th version and their inversions" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/../vanjacloud.shared.js/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/../vanjacloud.shared.js" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/../vanjacloud.shared.js/src/Ukulele.test.ts" />
+      <test-names>
+        <test-name value="isValidChord" />
+        <test-name value="identifies the 5th chord in a major scale, its 7th version and their inversions" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="AzureFunc/Dev" type="NodeJSConfigurationType" folderName="AzureFunc" node-parameters="--require ts-node/register" path-to-js-file="dev.ts" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="AzureFunc/Play" type="NodeJSConfigurationType" folderName="AzureFunc" node-parameters="--require ts-node/register" path-to-js-file="play.ts" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="SharedJS/Play" type="NodeJSConfigurationType" folderName="AzureFunc" node-parameters="--require ts-node/register" path-to-js-file="play.ts" working-dir="$PROJECT_DIR$/../vanjacloud.shared.js">
+      <method v="2" />
+    </configuration>
+    <configuration name="Wallaby/AzureFunc" type="wallaby" factoryName="wallaby" configType="Automatic" configFolder="$PROJECT_DIR$" wsl="No" SmartStart="No">
+      <method v="2" />
+    </configuration>
+    <configuration name="Wallaby/SharedJS" type="wallaby" factoryName="wallaby" configType="Automatic" configFolder="$PROJECT_DIR$/../vanjacloud.shared.js" wsl="No" SmartStart="No">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Jest.isValidChord.identifies the 5th chord in a major scale, its 7th version and their inversions" />
+      <item itemvalue="Node.js.AzureFunc/Play" />
+      <item itemvalue="Node.js.SharedJS/Play" />
+      <item itemvalue="Node.js.AzureFunc/Dev" />
+      <item itemvalue="Wallaby.js.Wallaby/AzureFunc" />
+      <item itemvalue="Wallaby.js.Wallaby/SharedJS" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.isValidChord.identifies the 5th chord in a major scale, its 7th version and their inversions" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0efcab70-ecd8-4dfb-b85f-7d51b1b29ffe" name="Changes" comment="" />
+      <created>1689411322092</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689411322092</updated>
+      <workItem from="1689411324065" duration="183000" />
+      <workItem from="1689411516202" duration="10380000" />
+      <workItem from="1689468488153" duration="38769000" />
+      <workItem from="1689672158114" duration="5361000" />
+      <workItem from="1689755305002" duration="108000" />
+      <workItem from="1689840894129" duration="20155000" />
+      <workItem from="1689931039113" duration="4646000" />
+      <workItem from="1690022861136" duration="1574000" />
+      <workItem from="1690366212414" duration="125729000" />
+      <workItem from="1690870146627" duration="50000" />
+    </task>
+    <task id="LOCAL-00001" summary="Got module sharing working">
+      <option name="closed" value="true" />
+      <created>1689411748763</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1689411748763</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Connected notion fetch &amp; chatgpt">
+      <option name="closed" value="true" />
+      <created>1689422180753</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1689422180753</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Battling typescript modules">
+      <option name="closed" value="true" />
+      <created>1689470395082</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1689470395082</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Battling typescript modules">
+      <option name="closed" value="true" />
+      <created>1689470614418</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1689470614418</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Why is this broken?">
+      <option name="closed" value="true" />
+      <created>1689494016236</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1689494016236</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Re-build shared">
+      <option name="closed" value="true" />
+      <created>1689496709224</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1689496709224</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Build fix?">
+      <option name="closed" value="true" />
+      <created>1689497126238</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1689497126239</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Build fix">
+      <option name="closed" value="true" />
+      <created>1689497439016</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1689497439016</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add basic language translation api">
+      <option name="closed" value="true" />
+      <created>1689503372639</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1689503372639</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Messing around with Ukuele">
+      <option name="closed" value="true" />
+      <created>1689576119238</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1689576119238</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Messing around with Ukuele">
+      <option name="closed" value="true" />
+      <created>1689576600732</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1689576600732</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Messing around with Ukuele">
+      <option name="closed" value="true" />
+      <created>1689576637420</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1689576637420</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Tired. Adding language &amp; week retrospect">
+      <option name="closed" value="true" />
+      <created>1689589499234</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1689589499234</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Remove weird rn thing">
+      <option name="closed" value="true" />
+      <created>1689590625767</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1689590625767</updated>
+    </task>
+    <task id="LOCAL-00015" summary="build is broken and it doesn't even use yarn sigh wtf">
+      <option name="closed" value="true" />
+      <created>1689669192853</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1689669192853</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Got module sharing working" />
+    <MESSAGE value="Connected notion fetch &amp; chatgpt" />
+    <MESSAGE value="Battling typescript modules" />
+    <MESSAGE value="Why is this broken?" />
+    <MESSAGE value="Re-build shared" />
+    <MESSAGE value="Build fix?" />
+    <MESSAGE value="Build fix" />
+    <MESSAGE value="Add basic language translation api" />
+    <MESSAGE value="Messing around with Ukuele" />
+    <MESSAGE value="Tired. Adding language &amp; week retrospect" />
+    <MESSAGE value="Remove weird rn thing" />
+    <MESSAGE value="build is broken and it doesn't even use yarn sigh wtf" />
+    <option name="LAST_COMMIT_MESSAGE" value="build is broken and it doesn't even use yarn sigh wtf" />
+  </component>
+</project>

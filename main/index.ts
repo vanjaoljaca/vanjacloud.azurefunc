@@ -8,6 +8,7 @@ import axios from 'axios';
 import * as fs from "fs";
 import keys from "../keys";
 import { LanguageTeacher } from "vanjacloud.shared.js";
+import moment from "moment";
 
 
 const systemPromptTemplate = fs.readFileSync('./content/systemprompt.template.md', 'utf8');
@@ -206,22 +207,22 @@ async function handleRetrospective(body: {
             `
         }
     );
-
     const thoughtDb = new ThoughtDB(keys.notion, ThoughtDB.proddbid);
 
-    let l = thoughtDb.getLatest()
+    let l = thoughtDb.getLatest(moment.duration(2, 'week'))
 
     let r = []
-    for await (const t of  l) {
+    for await (const t of l) {
         r.push(t)
     }
 
-    console.log(r)
+    console.log(r) //?
+
 
     const r2 = await chatGPT.say(`Here are the bullet journal items to convert into a journal entry:\n\n${r.join('\n\n')}`);
 
     return {
-        response: r2,
+        response: r2, //?
         request: body
     }
 }
@@ -343,13 +344,39 @@ export async function runInternal(route: string, query, body, params) {
     }
 }
 
-export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
+async function streamResponse(generator, writeChunk) {
+    for await (const chunk of generator) {
+        writeChunk(chunk);
+    }
+}
 
+export const run: AzureFunction = async function (context: Context, req: HttpRequest) {
     let route = req.params.route;
     const query = req.query as unknown as any; // IMainQuery;
     const body = req.body as unknown as IMainBody;
     const params = req.params as unknown as IMainParams;
-    return await runInternal(route, query, body, params);
+
+    const result = await runInternal(route, query, body, params);
+
+    context.res = {
+        status: 200,
+        headers: result.headers,
+    };
+
+    if (typeof result.body[Symbol.asyncIterator] === 'function') {
+        context.res = {
+            isRaw: true,
+            body: ''
+        };
+        await streamResponse(result.body, chunk => {
+            context.res.body += JSON.stringify(chunk);
+        });
+    } else {
+        context.res = {
+            body: result.body
+        };
+    }
 };
+
 
 export default run;
