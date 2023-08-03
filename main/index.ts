@@ -235,58 +235,53 @@ async function handleChatGpt(body: any) {
 }
 
 async function runApi(
-    api,
-    query: any,
-    body: any,
-    params: IMainParams
-) {
-    try {
-
-        switch (api) {
-            case 'spotify':
-                return {
-                    spotify: true
-                }
-                break;
-            case 'whatsapp':
-            case 'messenger':
-                if (query['hub.verify_token'] == 'vanjacloud') {
-                    return query['hub.challenge'];
-                } else {
-                    return handleMessage(body);
-                }
-                break;
-            case 'blog':
-                return handleBlog(body);
-                break;
-            case 'chat':
-                return handleChat(query.blogId, body.context, body.message);
-                break;
-            case 'chatgpt':
-                return handleChatGpt(body);
-                break;
-            case 'language':
-                return handleLanguage(body);
-                break;
-            case 'languageretrospective':
-                return handleLanguageRetrospective(body);
-                break;
-            case 'retrospective':
-                return handleRetrospective(body);
-                break;
-            default:
+    enum ApiType {
+        SPOTIFY = 'spotify',
+        WHATSAPP = 'whatsapp',
+        MESSENGER = 'messenger',
+        BLOG = 'blog',
+        CHAT = 'chat',
+        CHATGPT = 'chatgpt',
+        LANGUAGE = 'language',
+        LANGUAGERETROSPECTIVE = 'languageretrospective',
+        RETROSPECTIVE = 'retrospective'
+    }
+    
+    const apiFunctionMapping = {
+        [ApiType.SPOTIFY]: spotifyFunction,
+        [ApiType.WHATSAPP]: whatsappFunction,
+        [ApiType.MESSENGER]: messengerFunction,
+        [ApiType.BLOG]: blogFunction,
+        [ApiType.CHAT]: chatFunction,
+        [ApiType.CHATGPT]: chatGptFunction,
+        [ApiType.LANGUAGE]: languageFunction,
+        [ApiType.LANGUAGERETROSPECTIVE]: languageRetrospectiveFunction,
+        [ApiType.RETROSPECTIVE]: retrospectiveFunction
+    }
+    
+    async function runApi(
+        api: ApiType,
+        query: any,
+        body: any,
+        params: IMainParams
+    ) {
+        try {
+            const apiFunction = apiFunctionMapping[api];
+            if (apiFunction) {
+                return apiFunction(query, body, params);
+            } else {
                 console.log('unknown api', api);
                 return {
                     error: 'unknown api'
                 }
-        }
-    } catch (error) {
-        console.log(error)
-        return {
-            error
+            }
+        } catch (error) {
+            console.log(error)
+            return {
+                error
+            }
         }
     }
-}
 
 async function serveStatic(requestedFile: string) {
     const basePath = path.resolve(process.cwd(), 'static'); //?
