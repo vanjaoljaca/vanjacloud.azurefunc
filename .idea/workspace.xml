@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0efcab70-ecd8-4dfb-b85f-7d51b1b29ffe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/main/index.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main/index.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main/index.ts" afterDir="false" />
-    </list>
+    <list default="true" id="0efcab70-ecd8-4dfb-b85f-7d51b1b29ffe" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,6 +117,7 @@
       <workItem from="1690022861136" duration="1574000" />
       <workItem from="1690366212414" duration="125729000" />
       <workItem from="1690870146627" duration="50000" />
+      <workItem from="1691061433101" duration="2907000" />
     </task>
     <task id="LOCAL-00001" summary="Got module sharing working">
       <option name="closed" value="true" />
