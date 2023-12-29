@@ -51,3 +51,4 @@ __azurite_db*__.json
 quokka.ts
 
 temp/
+.DS_Store
